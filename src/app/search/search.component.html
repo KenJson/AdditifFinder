@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title label>Searchpage</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+
+      <ion-col size="8">
+        <ion-item>
+          <ion-label position="floating">E</ion-label>
+          <ion-input [(ngModel)]="searchInputValue"></ion-input>
+
+        </ion-item>
+
+        <ion-button mode="md" class="ion-margin" (click)="search()">Rechercher</ion-button>
+
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

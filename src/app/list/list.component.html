@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab-button (click)="ionContentElement.scrollToBottom()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+
+  <ion-list *ngIf="items$|async as items; else preloading">
+    <ion-item *ngFor="let item of items|slice: 0: maxItem" [routerLink]="['/list/' + item.id]">
+      <ion-text slot="start">{{item.id}}</ion-text>
+
+      <ion-label>
+        <h3>{{item.name}}</h3>
+        <p>{{item.type}}</p>
+      </ion-label>
+
+    </ion-item>
+  </ion-list>
+
+  <ng-template #preloading>
+    ...now loading...
+    <ion-item *ngFor="let item of [].constructor(5)">
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text [animated]="true" style="width: 60%;"></ion-skeleton-text>
+        </p>
+
+      </ion-label>
+    </ion-item>
+  </ng-template>
+
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)" *ngIf="(items$|async)?.length||0  < maxItem"
+    (ionInfinite)="onIonInfinite($event)">
+
+    <div loadingText="Patientez un peu wallah" loadingSpinner="bubbles">
+
+      <ion-item *ngFor="let item of [].constructor(5)">
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text [animated]="true" style="width: 60%;"></ion-skeleton-text>
+          </p>
+
+        </ion-label>
+      </ion-item>
+
+    </div>
+
+  </ion-infinite-scroll>
+</ion-content>
